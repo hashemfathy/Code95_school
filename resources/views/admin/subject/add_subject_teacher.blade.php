@@ -2,7 +2,7 @@
 @section('content')
 <div id="content">
   <div id="content-header">
-    <h1>Add subject</h1>
+    <h1>add new teacher</h1>
   </div>
     <div class="error">
         @if ($errors->any())
@@ -26,21 +26,11 @@
       <div class="span12">
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-            <h5>add subject</h5>
+            <h5>add new teacher</h5>
           </div>
           <div class="widget-content nopadding">
-            <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{route('add.subject')}}" name="add_subject" id="add_subject" novalidate="novalidate">
+            <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{route('updateAdminSubjectTeacher',[$subject->id])}}" name="add_subject_teacher" id="add_subject_teacher" novalidate="novalidate">
             @csrf 
-              <div class="control-group">
-                <label class="control-label">Select Level</label>
-                <div class="controls"style="width:15%;">
-                  <select name="level_id">
-                    @foreach($level as $level)
-                    <option name="selection"value="{{$level->id}}">{{$level->name}}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
               <div class="control-group">
                   <label class="control-label">select classroom</label>
                   <div class="controls">
@@ -52,13 +42,7 @@
                   </div>
               </div>
               <div class="control-group">
-                <label class="control-label">subject code</label>
-                <div class="controls">
-                  <input type="text" value="{{ old('subject_code') }}" name="subject_code" id="subject_code">
-                </div>
-              </div>
-              <div class="control-group">
-                  <label class="control-label">subject teachers</label>
+                  <label class="control-label">subject teacher</label>
                   <div class="controls">
                     <select class="js-example-basic-multiple" name="teacher">
                       @foreach($teachers as $teacher)
@@ -68,7 +52,7 @@
                   </div>
               </div>
               <div class="form-actions">
-                <input type="submit" value="add subject" class="btn btn-success">
+                <input type="submit" value="add teacher" class="btn btn-success">
               </div>
             </form>
           </div>

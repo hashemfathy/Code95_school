@@ -12,10 +12,18 @@ class Teacher extends Model
     }
     public function subjects()
     {
-        return $this->belongsToMany('App\Subject','teach_class_subject');
+        return $this->belongsToMany('App\Subject', 'teach_class_subject');
     }
     public function classrooms()
     {
-        return $this->belongsToMany('App\Classroom','teach_class_subject');
+        return $this->belongsToMany('App\Classroom', 'teach_class_subject');
+    }
+    public function ClassSubjectTeach()
+    {
+        return $this->hasMany('App\ClassSubjectTeach');
+    }
+    public function results()
+    {
+        return $this->hasMany('App\Result');
     }
 }

@@ -27,7 +27,7 @@
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
+   <!--  <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
         <li class="divider"></li>
@@ -44,7 +44,7 @@
         <li class="divider"></li>
         <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i> trash</a></li>
       </ul>
-    </li>
+    </li> -->
     <li class=""><a title="" href="{{route('get.adminSettings')}}"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="{{route('admin.getlogout')}}"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
@@ -57,7 +57,16 @@
     <li> <a href="{{route('get.AdminStudents')}}"><i class="icon icon-signal"></i> <span>Students</span></a> </li>
     <li> <a href="{{route('get.AdminTeachers')}}"><i class="icon icon-signal"></i> <span>Teachers</span></a> </li>
     <li> <a href="{{route('get.AdminSubjects')}}"><i class="icon icon-signal"></i> <span>Subjects</span></a> </li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Results</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="{{route('get.AdminResults')}}">all results</a></li>
+        <li><a href="{{route('get.AdminResultsLevels')}}">Levels results</a></li>
+        <li><a href="{{route('get.AdminResultsClassrooms')}}">Classrooms results</a></li>
+        <li><a href="{{route('get.AdminResultsSubjects')}}">Subjects results</a></li>
+      </ul>
+    </li>
+    
+   <!--  <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>
         <li><a href="form-common.html">Basic Form</a></li>
@@ -97,7 +106,7 @@
       </div>
       <span class="percent">87%</span>
       <div class="stat">604.44 / 4000 MB</div>
-    </li>
+    </li> -->
   </ul>
 </div>
 <!--sidebar-menu-->
@@ -121,6 +130,8 @@
 <script src="{{URL::to('js/backend_js/jquery.validate.js')}}"></script> 
 <script src="{{URL::to('js/backend_js/matrix.tables.js')}}"></script>
 <script src="{{URL::to('js/backend_js/jquery.dataTables.min.js')}}"></script> 
+<script src="{{URL::to('js/backend_js/select2.min.js')}}"></script>
+<!-- <script src="{{URL::to('js/backend_js/matrix.js')}}"></script>  -->
 <script src="{{URL::to('js/backend_js/admin.js')}}"></script> 
 <script src="{{URL::to('js/backend_js/lodash.js')}}"></script> 
 

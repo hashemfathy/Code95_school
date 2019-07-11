@@ -59,10 +59,16 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::get('admin/subjects','AdminController@getAdminSubjects')->name('get.AdminSubjects');
     Route::get('admin/subjects/add-subject','AdminController@getAddSubject')->name('get.AddSubject');
     Route::post('/admin/subjects/add-subject','AdminController@addSubject')->name('add.subject');
-    Route::get('/admin/subjects/edit-subject/{id}','AdminController@getEditSubject')->name('get.editAdminSubject');
-    Route::post('/admin/subjects/edit-subject/{id}','AdminController@updateSubject')->name('updateAdminSubject');
+    Route::get('/admin/subjects/add-subject-teacher/{id}','AdminController@getAddSubjectTeacher')->name('get.addAdminSubjectTeacher');
+    Route::post('/admin/subjects/add-subject-teacher/{id}','AdminController@updateSubjectTeacher')->name('updateAdminSubjectTeacher');
+    Route::post('/admin/subjects/edit-subject/{id}','AdminController@getEditSubjectCode')->name('updateSubjectCode');
+    Route::get('/admin/subjects/delete-subject-teacher/{teacher}/{subject}','AdminController@deleteSubjectTeacher')->name('delete.SubjectTeacher');
     Route::get('/admin/subjects/delete-subject/{id}','AdminController@deleteAdminSubject')->name('delete.adminSubject');
-
+    // ---------admin results part -----
+    Route::get('admin/results','AdminController@getAdminResults')->name('get.AdminResults');
+    Route::get('admin/results/levels','AdminController@getAdminResultsLevels')->name('get.AdminResultsLevels');
+    Route::get('admin/results/classrooms','AdminController@getAdminResultsClassrooms')->name('get.AdminResultsClassrooms');
+    Route::get('admin/results/subjects','AdminController@getAdminResultsSubjects')->name('get.AdminResultsSubjects');
 
 });
 // -----------------------------teacher Page Routes------------------------------

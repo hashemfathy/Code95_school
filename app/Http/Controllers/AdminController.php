@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Image;
 use App\User;
 use App\Level;
+use App\Result;
 use App\Student;
 use App\Subject;
 use App\Teacher;
 use App\Classroom;
+use App\ClassSubjectTeach;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class AdminController extends Controller
@@ -17,7 +20,7 @@ class AdminController extends Controller
 // ----------------------Student Controllers -----------------------
     public function getAdminStudents()
     {
-        $students=User::where('is_admin','3')->get();
+        $students=User::where('is_admin','3')->with(['student' => function($q) { $q->with(['classroom','level']);}])->get();
         return view('admin.student.view_students',compact('students'));
     }
     public function getAddStudent()
@@ -143,7 +146,7 @@ class AdminController extends Controller
 // ----------------------Teacher Controllers -----------------------
     public function getAdminTeachers()
     {
-        $teachers=User::where('is_admin','2')->get();
+        $teachers=User::where('is_admin','2')->with('teacher')->get();
         return view('admin.teacher.view_teachers',compact('teachers'));
     }
     public function getAddTeacher()
@@ -155,6 +158,7 @@ class AdminController extends Controller
         $this->validate($request,[
             'email' => 'email|required|unique:users',
             'password' => 'required|min:6',
+            'phone_number'=>'required'
         ]);
         $data=$request->all();
 
@@ -257,58 +261,100 @@ class AdminController extends Controller
 // ----------------------Subject Controllers -----------------------
     public function getAdminSubjects()
     {
-        $subjects=Subject::with(['teachers'=>function($q){$q->groupBy('id');}])->get();
         
-        return response()->json($subjects);die;
+        $subjects=Subject::with(['teachers' => function($q) { $q->distinct('id')->with('user', 'classrooms'); },'level'])->get();
+        
+        // return response()->json($subjects);die;
+
         return view('admin.subject.view_subjects',compact('subjects'));
     }
     public function getAddSubject()
     {
+        $teachers=Teacher::with('user')->get();
         $level=Level::all();
-        return view('admin.subject.add_subject',compact('level'));
+        $classrooms=Classroom::all();
+        return view('admin.subject.add_subject',compact('level','teachers','classrooms'));
     }
     public function addSubject(Request $request)
     {
         $this->validate($request,[
             'level_id'=>'required',
-            'subject_code'=>'required|unique:subjects'
+            'subject_code'=>'required|unique:subjects',
         ]);
+        \DB::transaction(function()use($request){
         $data=$request->all();
+        // return response()->json($data);die;
         $subject=new Subject;
         $subject->subject_code=$request->subject_code;
         $subject->level_id=$request->level_id;
         $subject->save();
+        $teacher = DB::table('teach_class_subject')->insertGetId([
+            'teacher_id' => $request->teacher,
+            'classroom_id' => $request->classroom,
+            'subject_id'=>$subject->id
+            ]);
+        });
         return redirect()->route('get.AdminSubjects')->with('flush_errors','subject added successfully');
     }
-    public function getEditSubject($id)
+    public function getAddSubjectTeacher($id)
     {
+        $teachers=Teacher::with('user')->get();
         $level=Level::all();
+        $classrooms=Classroom::all();
         $subject=Subject::where('id',$id)->first();
-        return view('admin.subject.edit_subject',compact('subject','level'));
+        
+        return view('admin.subject.add_subject_teacher',compact('subject','level','classrooms','teachers'));
     }
-    public function updateSubject(Request $request,$id)
+    public function updateSubjectTeacher(Request $request,$id)
     {              
-        $subject=Subject::find($id);
-        if($request->subject_code !==$subject->subject_code ){
-        $this->validate($request,[ 
-            'subject_code' => 'required|unique:subjects',
-        ]);
-        }
-        $this->validate($request,[ 
-            'level_id'=>'required',
-        ]);
-        $data=$request->all();
+        $teacher = DB::table('teach_class_subject')->insertGetId([
+            'teacher_id' => $request->teacher,
+            'classroom_id' => $request->classroom,
+            'subject_id'=>$id
+            ]);
+        return redirect()->route('get.AdminSubjects')->with('flush_errors','teacher added successfully');
+    }
+    public function getEditSubjectCode(Request $request,$id)
+    {
+        $subject=Subject::where('id',$id)->first();
         $subject->subject_code=$request->subject_code;
-        $subject->level_id=$request->level_id;
-
         $subject->update();
-        return redirect()->route('get.AdminSubjects')->with('flush_errors','subject updated successfully');
+        return redirect()->route('get.AdminSubjects')->with('flush_errors','Subject code updated successfully');
+    }
+    public function deleteSubjectTeacher($teacher,$subject)
+    {
+        DB::table('teach_class_subject')->where(['teacher_id'=>$teacher,'subject_id'=>$subject])->delete();
+        return redirect()->route('get.AdminSubjects')->with('flush_errors','teacher deleted successfully');
     }
     public function deleteAdminSubject($id)
     {
+        \DB::transaction(function()use($id){
+
+        DB::table('teach_class_subject')->where('subject_id',$id)->delete();
         $subject=Subject::find($id);
         $subject->delete();  
+        });
         return redirect()->route('get.AdminSubjects')->with('flush_errors','subject deleted successfully');
+    }
+// ------------------------------------------------------------------
+// ----------------------Results Controllers -----------------------
+    public function getAdminResults()
+    {
+        $result=Result::with(['student'=>function($q){$q->with('user');},'teacher'=>function($q){$q->with('user');},'level','classroom','subject'])->get();
+        // return response()->json($result);
+        return view('admin.results.view_all',compact('result'));
+    }
+    public function getAdminResultsLevels()
+    {
+        return view('admin.results.view_levels');
+    }
+    public function getAdminResultsClassrooms()
+    {
+        return view('admin.results.view_classrooms');
+    }
+    public function getAdminResultsSubjects()
+    {
+        return view('admin.results.view_subjects');
     }
 // ------------------------------------------------------------------
 }

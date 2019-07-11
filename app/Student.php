@@ -18,4 +18,8 @@ class Student extends Model
     {
         return $this->belongsTo('App\Level');
     }
+    public function results()
+    {
+        return $this->hasMany('App\Result');
+    }
 }

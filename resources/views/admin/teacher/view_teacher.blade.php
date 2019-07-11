@@ -56,16 +56,14 @@
                 <tr>
                 <th style="background-color:#DDD9CD;"><h4>subject code</h4></th>
                   <th style="background-color:#DDD9CD;"><h4>level</h4></th>
-                  <th style="background-color:#DDD9CD;"><h4>classroom</h4></th>
-                  <th style="background-color:#DDD9CD;"><h4>Result/100</h4></th>
-                  <th style="background-color:#DDD9CD;"><h4>teacher</h4></th>
+                  <th style="background-color:#DDD9CD;"><h4>classrooms</h4></th>
+                  <th style="background-color:#DDD9CD;"><h4>adminstration review</h4></th>
                 </tr>
               </thead>
               <tbody>
               @foreach($teacher as $teacher)
                 <tr class="gradeX">
                   <td style="text-align:center;"><h5 style="font-size:20px;color:blue;"></h5></td>
-                  <td style="text-align:center;"><h5></h5></td>
                   <td style="text-align:center;"><h5></h5></td>
                   <td style="text-align:center;"><h5></h5></td>
                   <td style="text-align:center;"><h5></h5></td>

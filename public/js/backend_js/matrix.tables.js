@@ -6,6 +6,8 @@ $(document).ready(function(){
 		"sPaginationType": "full_numbers",
 		"sDom": '<""l>t<"F"fp>'
 	});
+	$('.js-example-basic-multiple').select2();
+
 	
 	/* $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 	

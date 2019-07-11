@@ -15,4 +15,8 @@ class Level extends Model
     public function subjects(){
         return $this->hasMany('App\Subject');
     }
+    public function results()
+    {
+        return $this->hasMany('App\Result');
+    }
 }
