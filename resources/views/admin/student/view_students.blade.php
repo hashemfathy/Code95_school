@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('content')
-<<div id="content">
+<div id="content">
   <div id="content-header">
     <h1>Students</h1>
   </div>

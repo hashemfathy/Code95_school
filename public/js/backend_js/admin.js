@@ -45,7 +45,7 @@ $(document).ready(function(){
 		}
     });
     //------------------------------------- student Setting password check-------------------------- 
-	$('#current_Stpwd').keyup(function(){
+	$('#current_Stpwd').keyup(_.debounce(function(){
 		var current_Stpwd = $('#current_Stpwd').val();
 		$.ajax({
 			type:'get',
@@ -59,7 +59,7 @@ $(document).ready(function(){
 				}
 			}
 		});
-    });
+    },300));
     //------------------------------------- student Setting Validation-------------------------- 
     $("#Stpassword_validate").validate({
 		rules:{
@@ -90,7 +90,7 @@ $(document).ready(function(){
 		}
     });
      //------------------------------------- teacher Setting password check-------------------------- 
-	$('#current_Tepwd').keyup(function(){
+	$('#current_Tepwd').keyup(_.debounce(function(){
 		var current_Tepwd = $('#current_Tepwd').val();
 		$.ajax({
 			type:'get',
@@ -104,7 +104,7 @@ $(document).ready(function(){
 				}
 			}
 		});
-    });
+    },300));
     //------------------------------------- teacher Setting Validation-------------------------- 
     $("#Tepassword_validate").validate({
 		rules:{

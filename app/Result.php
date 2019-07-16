@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Result extends Model
 {
@@ -25,5 +26,9 @@ class Result extends Model
    public function level()
    {
        return $this->belongsTo('App\Level');
+   }
+   public function scopeClassroomSubjectResult(Builder $q, $classroom_id, $subject_id)
+   {
+        $q->where(['classroom_id'=>$classroom_id,'subject_id'=>$subject_id]);
    }
 }

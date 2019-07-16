@@ -7,7 +7,8 @@ use Auth;
 use App\User;
 use Session;
 use Hash;
-
+use function GuzzleHttp\Psr7\hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -57,6 +58,7 @@ class UserController extends Controller
             return redirect()->back()->with('flush_errors','unmatched passwords');
         }
     }
+    
     // ------------------------------------------------------
     public function studentLogin(){
         return view('login_student');
@@ -161,6 +163,5 @@ class UserController extends Controller
         }else{
             return redirect()->back()->with('flush_errors','unmatched passwords');
         }
-    }
-    
+    } 
 }

@@ -28,6 +28,14 @@ Route::get('/login/teacher','UserController@teacherLogin')->name('get.TeacherLog
 Route::post('/login/teacher','UserController@postTeacherLogin')->name('post.TeacherLogin');
 Route::get('/teacher/logout','UserController@getTeacherlogout')->name('teacher.getlogout');
 
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+
+
+
 
 
 
@@ -77,6 +85,13 @@ Route::group(['middleware'=>['checkTeacher']],function(){
     Route::get('/teacher/settings','UserController@teacherSettings')->name('get.teacherSettings');
     Route::get('/teacher/check-pwd','UserController@checkTeacherPassword')->name('check.teacherPassword');
     Route::post('/teacher/update-password','UserController@updateTeacherPassword')->name('update.teacherPassword');
+    Route::post('/teacher/dashboard/getLevels','TeacherController@getLevels');
+    Route::post('/teacher/dashboard/Results/updateFullDegree','TeacherController@updateFullDegree');
+    Route::post('/teacher/dashboard/Results/{result}','TeacherController@updateResult');
+    Route::post('/teacher/dashboard/{id}/getClassrooms','TeacherController@getClassrooms');
+    Route::post('/teacher/dashboard/{level_id}/classrooms/{classroom_id}/getSubjects','TeacherController@getSubjects');
+    Route::get('/teacher/dashboard/{classroom}/getResults/{subject}','TeacherController@getResults');
+
 });
 // -----------------------------student Page Routes------------------------------
 Route::group(['middleware'=>['checkStudent']],function(){
@@ -91,6 +106,5 @@ Route::group(['middleware'=>['checkStudent']],function(){
 
 
 
-Auth::routes();
-
+    
 Route::get('/home', 'HomeController@index')->name('home');

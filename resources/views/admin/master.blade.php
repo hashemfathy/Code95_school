@@ -4,6 +4,7 @@
 <title>Code95 School</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{URL::to('css/backend_css/bootstrap.min.css')}}" />
 <link rel="stylesheet" href="{{URL::to('css/backend_css/bootstrap-responsive.min.css')}}" />
 <link rel="stylesheet" href="{{URL::to('css/backend_css/fullcalendar.css')}}" />
@@ -57,15 +58,8 @@
     <li> <a href="{{route('get.AdminStudents')}}"><i class="icon icon-signal"></i> <span>Students</span></a> </li>
     <li> <a href="{{route('get.AdminTeachers')}}"><i class="icon icon-signal"></i> <span>Teachers</span></a> </li>
     <li> <a href="{{route('get.AdminSubjects')}}"><i class="icon icon-signal"></i> <span>Subjects</span></a> </li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Results</span> <span class="label label-important">3</span></a>
-      <ul>
-        <li><a href="{{route('get.AdminResults')}}">all results</a></li>
-        <li><a href="{{route('get.AdminResultsLevels')}}">Levels results</a></li>
-        <li><a href="{{route('get.AdminResultsClassrooms')}}">Classrooms results</a></li>
-        <li><a href="{{route('get.AdminResultsSubjects')}}">Subjects results</a></li>
-      </ul>
-    </li>
-    
+    <li> <a href="{{route('get.AdminResults')}}"><i class="icon icon-signal"></i> <span>Results</span></a> </li>       
+  </ul>
    <!--  <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>

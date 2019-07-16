@@ -42,6 +42,8 @@
                     </div>
                     <button type="submit" class="btn">Sign in!</button>
                 </form>
+                <br/>
+                <a href="{{route('password.request')}}"><p class="small">Forgot your password?</p></a>
             </div>
         </div>   
     </div>
