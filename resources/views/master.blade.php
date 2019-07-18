@@ -15,13 +15,12 @@
     @yield('style')
 </head>
 <body>
+
 <div class="container">
         <div class="top">
             <h1 id="title" class="hidden"><span id="logo">Code95 <span>school</span></span></h1>
         </div>
-        
-        
-        @yield('content')
+        @yield('content')          
     </div>  
 @yield('script')
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>

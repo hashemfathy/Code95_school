@@ -24,7 +24,7 @@ class CreateResultsTable extends Migration
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects');
             $table->integer('degree')->nullable();
-            $table->integer('full_degree');
+            $table->integer('full_degree')->nullable();
             $table->unsignedBigInteger('teacher_id');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->timestamps();

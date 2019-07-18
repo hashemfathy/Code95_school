@@ -29,29 +29,43 @@ class TeacherController extends Controller
     {
         $teacher=Auth::user()->id;
         $teacher = Classroom::where('id',$classroom_id)->with(['teachers'=>function($q) use($teacher,$level_id){$q->where('teacher_id',$teacher)->with(['subjects'=>function($q) use($level_id){$q->where('level_id',$level_id)->distinct();}]);}])->first();
-        return $teacher->teachers->first()->subjects;    
+        return  $teacher->teachers->first()->subjects;    
     }
-    public function getStudents(Classroom $classroom)
+    public function getStudents($classroom , $subject)
     {
-        return $classroom->students->load('user');
+        $students=Student::where('classroom_id',$classroom)->with(['user','results'=>function($q) use($subject){$q->where('subject_id',$subject);}])->get();
+        return $students;
     }
-    public function getResults(Classroom $classroom , Subject $subject)
-    {
-        try {
+    // public function getStudents(Classroom $classroom , Subject $subject)
+    // {
+    //     try {
 
-            $results = Result::classroomSubjectResult($classroom->id,$subject->id)->with(['student.user'])->get();
-            return ResultResource::collection($results);
+    //         $results = Result::classroomSubjectResult($classroom->id,$subject->id)->with(['student.user'])->get();
+    //         return ResultResource::collection($results);
 
-        } catch (\Exception $e) {
-            return $e;
-        } 
-    }
-    public function updateResult(Request $request,Result $result)
+    //     } catch (\Exception $e) {
+    //         return $e;
+    //     } 
+    // }
+    public function updateDegree(Request $request,Student $student)
     {
-        $result->degree = $request->degree;
-        $result->update();
-        $results = Result::classroomSubjectResult($request->classroom_id,$request->subject_id) ;
-        return ResultResource::collection( $results->with('student.user')->get());
+        $studentResult=Result::where(['student_id'=>$student->id,'subject_id'=>$request->subject_id])->first();
+        if($studentResult){
+            $studentResult->degree=$request->degree;
+            $studentResult->update();
+            $students=Student::where('classroom_id',$request->classroom_id)->with(['user','results'=>function($q) use($request){$q->where('subject_id',$request->subject_id);}])->get();
+            return $students;
+        }
+        $newStudentResult=new Result;
+        $newStudentResult->teacher_id=Auth::user()->id;
+        $newStudentResult->student_id=$student->id;
+        $newStudentResult->classroom_id=$request->classroom_id;
+        $newStudentResult->subject_id=$request->subject_id;
+        $newStudentResult->level_id=$student->level_id;
+        $newStudentResult->degree=$request->degree;
+        $newStudentResult->save();
+        $students=Student::where('classroom_id',$request->classroom_id)->with(['user','results'=>function($q) use($request){$q->where('subject_id',$request->subject_id);}])->get();
+        return $students;
     }
     public function updateFullDegree(Request $request)
     {
@@ -60,8 +74,8 @@ class TeacherController extends Controller
             'subject_id' => 'required',
             'full_degree' => 'required'
         ]);
-        $results = Result::classroomSubjectResult($request->classroom_id,$request->subject_id) ; 
-        tap($results)->update(['full_degree'=>$request->full_degree]);
-        return ResultResource::collection( $results->with('student.user')->get());
+        Result::classroomSubjectResult($request->classroom_id,$request->subject_id)->update(['full_degree'=>$request->full_degree]);
+        $students=Student::where('classroom_id',$request->classroom_id)->with(['user','results'=>function($q) use($request){$q->where('subject_id',$request->subject_id);}])->get();
+        return $students;
     }
 }

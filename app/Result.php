@@ -3,10 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 
 class Result extends Model
 {
+    
+    protected $appends = ['status'];
+
+    public function getStatusAttribute(){
+        if( $this->full_degree && $this->degree >= 0.5 * $this->full_degree){
+            return 'succeed';
+        }else if($this->full_degree && $this->degree < 0.5 * $this->full_degree){
+            return 'failed';
+        }
+        
+    }
     public function teacher()
    {
        return $this->belongsTo('App\Teacher');
