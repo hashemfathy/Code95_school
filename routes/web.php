@@ -86,12 +86,13 @@ Route::group(['middleware'=>['checkTeacher']],function(){
     Route::get('/teacher/check-pwd','UserController@checkTeacherPassword')->name('check.teacherPassword');
     Route::post('/teacher/update-password','UserController@updateTeacherPassword')->name('update.teacherPassword');
     Route::get('/teacher/dashboard/getLevels','TeacherController@getLevels');
+    Route::get('/teacher/dashboard/classrooms/{classroom_id}/subjects/{subject_id}','TeacherController@getResultStudents');
+    Route::get('/teacher/dashboard/levels/{level}/classrooms','TeacherController@getClassrooms');
+    Route::get('/teacher/dashboard/levels/{level}/classrooms/{classroom}','TeacherController@getSubjects');
+    Route::get('/teacher/dashboard/levels/{level}/classrooms/{classroom}/subjects/{subject}','TeacherController@getResults');
     
-    // Route::post('/teacher/dashboard/Results/updateFullDegree','TeacherController@updateFullDegree');
-    // Route::post('/teacher/dashboard/Results/{student}','TeacherController@updateDegree');
-    // Route::post('/teacher/dashboard/{id}/getClassrooms','TeacherController@getClassrooms');
-    // Route::post('/teacher/dashboard/{level_id}/classrooms/{classroom_id}/getSubjects','TeacherController@getSubjects');
-    // Route::get('/teacher/dashboard/{classroom}/getStudents/{subject}','TeacherController@getStudents');
+    Route::post('/teacher/dashboard/Results/updateFullDegree','TeacherController@updateFullDegree');
+    Route::post('/teacher/dashboard/Results/{student}','TeacherController@updateDegree');
 
 });
 // -----------------------------student Page Routes------------------------------

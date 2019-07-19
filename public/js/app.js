@@ -1730,26 +1730,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      lists: "",
-      errors: {}
-    };
-  },
-  mounted: function mounted() {
-    this.getClassrooms(this.$route.params.id); //    let lists =  localStorage.getItem('lists');
-    //    this.lists = JSON.parse(lists)
-  },
-  methods: {
-    getClassrooms: function getClassrooms(id) {
-      var _this = this;
-
-      axios.post("/teacher/dashboard/".concat(id, "/getClassrooms")).then(function (response) {
-        _this.lists = response.data;
-        console.log(response.data); // localStorage.setItem('lists',JSON.stringify(this.lists));
-      })["catch"](function (error) {
-        return _this.errors = error.response.data.errors;
-      });
+  props: {
+    classrooms: {
+      required: true
     }
   }
 });
@@ -1791,13 +1774,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       required: true
     }
-  },
-  data: function data() {
-    return {
-      lists: [],
-      temp: {},
-      errors: {}
-    };
   }
 });
 
@@ -1857,8 +1833,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: {},
       students: [],
       saved: false,
-      classroom_id: null,
-      subject_id: null,
+      // classroom_id: null,
+      // subject_id: null,
       searchStudent: '',
       temp: ''
     };
@@ -1872,6 +1848,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     }
   },
+  props: {
+    subject_id: {
+      required: true
+    },
+    level_id: {
+      required: true
+    },
+    classroom_id: {
+      required: true
+    }
+  },
   mounted: function () {
     var _mounted = _asyncToGenerator(
     /*#__PURE__*/
@@ -1880,12 +1867,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              this.classroom_id = this.$route.params.classroom_id;
-              this.subject_id = this.$route.params.subject_id;
-              _context.next = 4;
+              _context.next = 2;
               return this.getStudents(this.classroom_id, this.subject_id);
 
-            case 4:
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -1910,13 +1895,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios.get("/teacher/dashboard/".concat(classroom_id, "/getStudents/").concat(subject_id));
+                return axios.get("/teacher/dashboard/classrooms/".concat(classroom_id, "/subjects/").concat(subject_id));
 
               case 2:
                 response = _context2.sent;
-                this.students = this.temp = response.data; // console.log(response.data)
+                this.students = this.temp = response.data;
+                console.log(response.data);
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -2059,6 +2045,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     ResultTable: _ResultTable__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    subject_id: {
+      required: true
+    },
+    level_id: {
+      required: true
+    },
+    classroom_id: {
+      required: true
+    }
   }
 });
 
@@ -2094,28 +2091,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      lists: [],
-      classroom_id: '',
-      errors: {}
-    };
-  },
-  mounted: function mounted() {
-    this.getSubjects(this.$route.params.level_id, this.$route.params.classroom_id);
-    this.classroom_id = this.$route.params.classroom_id; //    let lists =  localStorage.getItem('lists');
-    //    this.lists = JSON.parse(lists)
-  },
-  methods: {
-    getSubjects: function getSubjects(level_id, classroom_id) {
-      var _this = this;
-
-      axios.post("/teacher/dashboard/".concat(level_id, "/classrooms/").concat(classroom_id, "/getSubjects")).then(function (response) {
-        _this.lists = response.data; // console.log(response.data)
-        // localStorage.setItem('lists',JSON.stringify(this.lists));
-      })["catch"](function (error) {
-        return _this.errors = error.response.data.errors;
-      });
+  props: {
+    subjects: {
+      required: true
+    },
+    level_id: {
+      required: true
+    },
+    classroom_id: {
+      required: true
     }
   }
 });
@@ -38802,11 +38786,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticStyle: {
-          margin: "50px",
-          "min-height": "77vh",
-          "min-width": "88vh"
-        },
+        staticStyle: { margin: "38px 220px", width: "80%" },
         attrs: { id: "content" }
       },
       [
@@ -38833,30 +38813,39 @@ var render = function() {
             _c(
               "ul",
               { staticClass: "quick-actions" },
-              _vm._l(_vm.lists.classrooms, function(classroom, key) {
+              _vm._l(_vm.classrooms.classrooms, function(classroom, key) {
                 return _c(
                   "li",
-                  { key: key, staticClass: "bg_lo span3" },
+                  {
+                    key: key,
+                    staticClass: "bg_lo span3",
+                    staticStyle: {
+                      "font-weight": "bolder",
+                      "font-size": "74px",
+                      color: "white"
+                    }
+                  },
                   [
                     _c(
-                      "router-link",
+                      "a",
                       {
                         attrs: {
-                          to:
-                            "/Classrooms/" +
+                          href:
+                            "/teacher/dashboard/levels/" +
                             classroom.level_id +
-                            "/Subjects/" +
+                            "/classrooms/" +
                             classroom.id
                         }
                       },
                       [
-                        _c("i", { staticClass: "icon-user" }),
-                        _vm._v(_vm._s(classroom.name))
+                        _c("strong", [
+                          _c("i", { staticClass: "icon-user" }),
+                          _vm._v(" "),
+                          _c("i", [_vm._v(" " + _vm._s(classroom.name))])
+                        ])
                       ]
-                    ),
-                    _vm._m(0, true)
-                  ],
-                  1
+                    )
+                  ]
                 )
               }),
               0
@@ -38867,22 +38856,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("i", [
-      _c("strong", {
-        staticStyle: {
-          "font-weight": "bolder",
-          "font-size": "20px",
-          color: "white"
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -38948,16 +38922,33 @@ var render = function() {
                         { key: key, staticClass: "bg_lg span3 submenu" },
                         [
                           _c(
-                            "router-link",
-                            { attrs: { to: "/Classrooms/" + level.id } },
+                            "a",
+                            {
+                              attrs: {
+                                href:
+                                  "/teacher/dashboard/levels/" +
+                                  level.id +
+                                  "/classrooms"
+                              }
+                            },
                             [
-                              _c("i", { staticClass: "icon-user" }),
-                              _vm._v(_vm._s(level.name))
+                              _c(
+                                "strong",
+                                {
+                                  staticStyle: {
+                                    "font-weight": "bolder",
+                                    "font-size": "20px",
+                                    color: "white"
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "icon-user" }),
+                                  _c("i", [_vm._v(_vm._s(level.name))])
+                                ]
+                              )
                             ]
-                          ),
-                          _vm._m(0, true)
-                        ],
-                        1
+                          )
+                        ]
                       )
                     }),
                     0
@@ -38970,22 +38961,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("i", [
-      _c("strong", {
-        staticStyle: {
-          "font-weight": "bolder",
-          "font-size": "20px",
-          color: "white"
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39213,11 +39189,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticStyle: {
-          margin: "50px",
-          "min-height": "77vh",
-          "min-width": "88vh"
-        },
+        staticStyle: { margin: "38px 220px", width: "80%" },
         attrs: { id: "content" }
       },
       [
@@ -39225,7 +39197,20 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "container-fluid" }, [
           _c("div", { staticClass: "row-fluid" }, [
-            _c("div", { staticClass: "span12" }, [_c("result-table")], 1)
+            _c(
+              "div",
+              { staticClass: "span12" },
+              [
+                _c("result-table", {
+                  attrs: {
+                    classroom_id: _vm.classroom_id,
+                    subject_id: _vm.subject_id,
+                    level_id: _vm.level_id
+                  }
+                })
+              ],
+              1
+            )
           ])
         ])
       ]
@@ -39267,11 +39252,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticStyle: {
-          margin: "50px",
-          "min-height": "77vh",
-          "min-width": "88vh"
-        },
+        staticStyle: { margin: "38px 220px", width: "80%" },
         attrs: { id: "content" }
       },
       [
@@ -39298,31 +39279,30 @@ var render = function() {
             _c(
               "ul",
               { staticClass: "quick-actions" },
-              _vm._l(_vm.lists, function(subject, key) {
-                return _c(
-                  "li",
-                  { key: key, staticClass: "bg_lo span3" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        attrs: {
-                          to:
-                            "/Classrooms/" +
-                            _vm.classroom_id +
-                            "/results/" +
-                            subject.id
-                        }
-                      },
-                      [
+              _vm._l(_vm.subjects, function(subject, key) {
+                return _c("li", { key: key, staticClass: "bg_lo span3" }, [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "/teacher/dashboard/levels/" +
+                          _vm.level_id +
+                          "/classrooms/" +
+                          _vm.classroom_id +
+                          "/subjects/" +
+                          subject.id
+                      }
+                    },
+                    [
+                      _c("strong", [
                         _c("i", { staticClass: "icon-user" }),
-                        _vm._v(_vm._s(subject.subject_code))
-                      ]
-                    ),
-                    _vm._m(0, true)
-                  ],
-                  1
-                )
+                        _vm._v(" "),
+                        _c("i", [_vm._v(" " + _vm._s(subject.subject_code))])
+                      ])
+                    ]
+                  )
+                ])
               }),
               0
             )
@@ -39332,22 +39312,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("i", [
-      _c("strong", {
-        staticStyle: {
-          "font-weight": "bolder",
-          "font-size": "20px",
-          color: "white"
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54194,6 +54159,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Classrooms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Classrooms */ "./resources/js/components/Classrooms.vue");
 /* harmony import */ var _components_Subjects__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Subjects */ "./resources/js/components/Subjects.vue");
 /* harmony import */ var _components_Results__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Results */ "./resources/js/components/Results.vue");
+/* harmony import */ var _components_ResultTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ResultTable */ "./resources/js/components/ResultTable.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -54210,19 +54176,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 
 
-var routes = [{
-  path: '/Levels',
-  component: _components_Levels__WEBPACK_IMPORTED_MODULE_2__["default"]
-}, {
-  path: "/Classrooms/:id",
-  component: _components_Classrooms__WEBPACK_IMPORTED_MODULE_4__["default"]
-}, {
-  path: "/Classrooms/:level_id/Subjects/:classroom_id",
-  component: _components_Subjects__WEBPACK_IMPORTED_MODULE_5__["default"]
-}, {
-  path: "/Classrooms/:classroom_id/results/:subject_id",
-  component: _components_Results__WEBPACK_IMPORTED_MODULE_6__["default"]
-}];
+
+var routes = [];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes
 });
@@ -54231,7 +54186,11 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: router,
   components: {
     Myside: _components_Myside__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Levels: _components_Levels__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Levels: _components_Levels__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Classrooms: _components_Classrooms__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Subjects: _components_Subjects__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Results: _components_Results__WEBPACK_IMPORTED_MODULE_6__["default"],
+    ResultTable: _components_ResultTable__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
 });
 

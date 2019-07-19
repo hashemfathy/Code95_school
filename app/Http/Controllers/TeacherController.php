@@ -22,21 +22,32 @@ class TeacherController extends Controller
     }
    
 
-    public function getClassrooms($id)
+    public function getClassrooms($level)
     {
         $teacher=Auth::user()->id;
-        return   Teacher::where('user_id',$teacher)->with(['classrooms'=>function ($q) use($id){$q->where('level_id',$id);}])->first();
-         
+        $classrooms=  Teacher::where('user_id',$teacher)->with(['classrooms'=>function ($q) use($level){$q->where('level_id',$level);}])->first();
+        return view('teacher.classrooms',compact('classrooms'));
     }
     public function getSubjects($level_id,$classroom_id)
     {
         $teacher=Auth::user()->id;
         $teacher = Classroom::where('id',$classroom_id)->with(['teachers'=>function($q) use($teacher,$level_id){$q->where('teacher_id',$teacher)->with(['subjects'=>function($q) use($level_id){$q->where('level_id',$level_id)->distinct();}]);}])->first();
-        return  $teacher->teachers->first()->subjects;    
+        $subjects = $teacher->teachers->first()->subjects;
+        return view('teacher.subjects',compact('subjects','level_id','classroom_id'));    
     }
-    public function getStudents($classroom , $subject)
+    public function getResults($level_id ,$classroom_id , $subject)
     {
-        $students=Student::where('classroom_id',$classroom)->with(['user','results'=>function($q) use($subject){$q->where('subject_id',$subject);}])->get();
+        $teacher=Auth::user()->id;
+        $check=ClassSubjectTeach::where(['classroom_id'=>$classroom_id,'subject_id'=>$subject,'teacher_id'=>$teacher])->first();
+        if($check){
+            return view('teacher.results',compact('level_id','classroom_id','subject'));
+        }
+        return redirect()->back()->with('flush_errors','Your are not allowed to access !');
+        
+    }
+    public function getResultStudents($classroom_id , $subject_id)
+    {
+        $students=Student::where('classroom_id',$classroom_id)->with(['user','results'=>function($q) use($subject_id){$q->where('subject_id',$subject_id);}])->get();
         return $students;
     }
     // public function getStudents(Classroom $classroom , Subject $subject)

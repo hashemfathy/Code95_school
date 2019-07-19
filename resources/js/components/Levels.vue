@@ -10,7 +10,7 @@
         <div class="container-fluid" style="margin-left:70px;">
             <div class="quick-actions_homepage">
                 <ul class="quick-actions">
-                    <li class="bg_lg span3 submenu" v-for="(level,key) in levels" :key="key" > <router-link :to="`/Classrooms/${level.id}`"> <i class="icon-user"></i>{{level.name}}</router-link><i ><strong style="font-weight:bolder;font-size:20px;color:white;"></strong></i></li>
+                    <li class="bg_lg span3 submenu" v-for="(level,key) in levels" :key="key" > <a :href="`/teacher/dashboard/levels/${level.id}/classrooms`"> <strong style="font-weight:bolder;font-size:20px;color:white;"><i class="icon-user"></i><i >{{level.name}}</i></strong></a></li>
                 </ul>
             </div>
         <!--End-Action boxes-->    
@@ -26,13 +26,7 @@ export default {
             required:true
         }
     },
-    data(){
-        return{
-            lists:[],
-            temp:{},
-            errors:{},
-        }
-    },
+
 }
 </script>
 
