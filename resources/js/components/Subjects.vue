@@ -1,6 +1,6 @@
 <template>
     <div >
-        <div id="content" style="margin:50px;min-height:77vh;min-width:88vh;">
+        <div id="content" style="margin:38px 220px;width:80%" >
             <!--breadcrumbs-->
             <div id="content-header">
                 <div id="breadcrumb"> <router-link to="" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Subjects</router-link></div>
@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="quick-actions_homepage">
                     <ul class="quick-actions">
-                        <li class="bg_lo span3" v-for="(subject,key) in lists" :key="key"> <router-link :to="`/Classrooms/${classroom_id}/results/${subject.id}`" > <i class="icon-user" ></i>{{ subject.subject_code }}</router-link><i ><strong style="font-weight:bolder;font-size:20px;color:white;"></strong></i></li>
+                        <li class="bg_lo span3" v-for="(subject,key) in lists" :key="key"> <a :href="`/teacher/dashboard/${subject.level_id}/Classrooms/${classroom_id}/results/${subject.id}`" > <strong style="font-weight:bolder;font-size:20px;color:white;"><i class="icon-user" ></i><i >{{ subject.subject_code }}</i></strong></a></li>
                     </ul>
                 </div>
             <!--End-Action boxes-->    

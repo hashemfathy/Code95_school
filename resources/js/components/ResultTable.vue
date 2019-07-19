@@ -36,8 +36,8 @@ export default {
             errors:{},
             students:[],
             saved:false,
-            classroom_id: null,
-            subject_id: null,
+            // classroom_id: null,
+            // subject_id: null,
             searchStudent:'',
             temp:'',
         }
@@ -49,16 +49,25 @@ export default {
             })
         } 
     },
+    props:{
+        subject_id:{
+            required:true
+        },
+        level_id:{
+            required:true
+        },
+        classroom_id:{
+            required:true
+        }
+    },
     async mounted(){
-        this.classroom_id = this.$route.params.classroom_id;
-        this.subject_id = this.$route.params.subject_id;
         await this.getStudents(this.classroom_id,this.subject_id);        
     },
     methods:{
         async getStudents(classroom_id,subject_id){
-            const response = await axios.get(`/teacher/dashboard/${classroom_id}/getStudents/${subject_id}`);
+            const response = await axios.get(`/teacher/dashboard/classrooms/${classroom_id}/subjects/${subject_id}`);
             this.students = this.temp = response.data;
-            // console.log(response.data)
+            console.log(response.data)
         },
         async updateDegree(degree,student){
             // console.log(student);

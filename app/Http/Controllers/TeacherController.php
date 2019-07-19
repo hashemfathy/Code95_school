@@ -31,22 +31,23 @@ class TeacherController extends Controller
         $teacher = Classroom::where('id',$classroom_id)->with(['teachers'=>function($q) use($teacher,$level_id){$q->where('teacher_id',$teacher)->with(['subjects'=>function($q) use($level_id){$q->where('level_id',$level_id)->distinct();}]);}])->first();
         return  $teacher->teachers->first()->subjects;    
     }
-    public function getStudents($classroom , $subject)
+    public function getResultStudents($classroom , $subject)
     {
-        $students=Student::where('classroom_id',$classroom)->with(['user','results'=>function($q) use($subject){$q->where('subject_id',$subject);}])->get();
-        return $students;
+            $students=Student::where('classroom_id',$classroom)->with(['user','results'=>function($q) use($subject){$q->where('subject_id',$subject);}])->get();
+            return $students;
+        
     }
-    // public function getStudents(Classroom $classroom , Subject $subject)
-    // {
-    //     try {
-
-    //         $results = Result::classroomSubjectResult($classroom->id,$subject->id)->with(['student.user'])->get();
-    //         return ResultResource::collection($results);
-
-    //     } catch (\Exception $e) {
-    //         return $e;
-    //     } 
-    // }
+    public function getResults($level_id ,$classroom_id , $subject)
+    {
+        $teacher=Auth::user()->id;
+        $check=ClassSubjectTeach::where(['classroom_id'=>$classroom_id,'subject_id'=>$subject,'teacher_id'=>$teacher])->first();
+        if($check){
+            return view('teacher.results',compact('level_id','classroom_id','subject'));
+        }
+        return redirect()->back()->with('flush_errors','Your are not allowed to access !');
+        
+    }
+    
     public function updateDegree(Request $request,Student $student)
     {
         $studentResult=Result::where(['student_id'=>$student->id,'subject_id'=>$request->subject_id])->first();

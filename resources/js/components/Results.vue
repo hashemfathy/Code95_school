@@ -1,6 +1,6 @@
 <template>
     <div >
-        <div id="content" style="margin:50px;min-height:77vh;min-width:88vh;">
+        <div id="content" style="margin:38px 220px;width:80%" >
             <!--breadcrumbs-->
             <div id="content-header">
                 <h1>Results</h1>
@@ -15,7 +15,7 @@
                 </div> -->
                  <div class="row-fluid">
                     <div class="span12">
-                      <result-table></result-table>
+                      <result-table :classroom_id = classroom_id :subject_id= subject_id :level_id= level_id></result-table>
                     </div>
                 </div>
             </div>
@@ -29,8 +29,17 @@ import ResultTable from './ResultTable'
 export default {
     components:{
         ResultTable,
+    },
+    props:{
+        subject_id:{
+            required:true
+        },
+        level_id:{
+            required:true
+        },
+        classroom_id:{
+            required:true
+        }
     }
 }
 </script>
-
-

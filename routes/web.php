@@ -87,10 +87,11 @@ Route::group(['middleware'=>['checkTeacher']],function(){
     Route::post('/teacher/update-password','UserController@updateTeacherPassword')->name('update.teacherPassword');
     Route::post('/teacher/dashboard/getLevels','TeacherController@getLevels');
     Route::post('/teacher/dashboard/Results/updateFullDegree','TeacherController@updateFullDegree');
+    Route::get('/teacher/dashboard/{level_id}/Classrooms/{classroom_id}/results/{subject}','TeacherController@getResults');
     Route::post('/teacher/dashboard/Results/{student}','TeacherController@updateDegree');
     Route::post('/teacher/dashboard/{id}/getClassrooms','TeacherController@getClassrooms');
     Route::post('/teacher/dashboard/{level_id}/classrooms/{classroom_id}/getSubjects','TeacherController@getSubjects');
-    Route::get('/teacher/dashboard/{classroom}/getStudents/{subject}','TeacherController@getStudents');
+    Route::get('/teacher/dashboard/classrooms/{classroom_id}/subjects/{subject_id}','TeacherController@getResultStudents');
 
 });
 // -----------------------------student Page Routes------------------------------

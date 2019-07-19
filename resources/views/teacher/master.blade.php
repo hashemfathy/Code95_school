@@ -99,10 +99,16 @@
     </li> -->
 </div>
 <!--sidebar-menu-->
+<div id="app">
+    <Myside></Myside>
+    <router-view></router-view>
 
+    <div class="container" >
+    </div>
 <!--main-container-part-->
 @yield('content')
 <!--end-main-container-part-->
+</div>
 
 <!--Footer-part-->
 

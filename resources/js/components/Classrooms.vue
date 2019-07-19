@@ -1,6 +1,6 @@
 <template>
     <div >
-        <div id="content" style="margin:50px;min-height:77vh;min-width:88vh;">
+        <div id="content" style="margin:38px 220px;width:80%" >
             <!--breadcrumbs-->
             <div id="content-header">
                 <div id="breadcrumb"> <router-link to="" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Classrooms</router-link></div>
