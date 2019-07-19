@@ -17,8 +17,11 @@ class TeacherController extends Controller
 {
     public function getLevels()
     {
-        return Level::all();
+        $levels = Level::all();
+        return view('teacher.levels',compact('levels'));
     }
+   
+
     public function getClassrooms($id)
     {
         $teacher=Auth::user()->id;

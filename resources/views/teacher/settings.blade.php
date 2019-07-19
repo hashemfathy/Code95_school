@@ -1,6 +1,6 @@
 @extends('teacher.master')
 @section('content')
-<div id="content">
+<div id="content" style="margin:38px 220px;width:80%" >
   <div id="content-header">
     <h1>teacher settings</h1>
   </div>

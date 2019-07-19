@@ -99,9 +99,16 @@
     </li> -->
 </div>
 <!--sidebar-menu-->
-
+<div id="sidebar" ><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+        <ul>
+            <li><a href="/teacher/dashboard/getLevels" ><i class="icon icon-home"></i> <span>Levels</span></a></li>
+        </ul>
+    </div>
 <!--main-container-part-->
-@yield('content')
+<div id="app" >  
+
+  @yield('content')
+</div>
 <!--end-main-container-part-->
 
 <!--Footer-part-->

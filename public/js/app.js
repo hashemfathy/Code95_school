@@ -1786,23 +1786,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    levels: {
+      type: Array,
+      required: true
+    }
+  },
   data: function data() {
     return {
       lists: [],
       temp: {},
       errors: {}
     };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    axios.post('/teacher/dashboard/getLevels').then(function (response) {
-      return _this.temp = response.data;
-    })["catch"](function (error) {
-      return _this.errors = error.response.data.errors;
-    });
-  },
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -38908,66 +38904,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticStyle: {
-          margin: "50px",
-          "min-height": "77vh",
-          "min-width": "88vh"
-        },
-        attrs: { id: "content" }
-      },
-      [
-        _c("div", { attrs: { id: "content-header" } }, [
-          _c(
-            "div",
-            { attrs: { id: "breadcrumb" } },
-            [
+  return _c(
+    "div",
+    {
+      staticStyle: { margin: "38px 220px", width: "80%" },
+      attrs: { id: "content" }
+    },
+    [
+      _vm.levels.length > 0
+        ? _c("div", { staticStyle: { "min-height": "500px" } }, [
+            _c("div", { attrs: { id: "content-header" } }, [
               _c(
-                "router-link",
-                {
-                  staticClass: "tip-bottom",
-                  attrs: { to: "", title: "Go to Home" }
-                },
-                [_c("i", { staticClass: "icon-home" }), _vm._v(" Levels")]
+                "div",
+                { attrs: { id: "breadcrumb" } },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "tip-bottom",
+                      attrs: { to: "", title: "Go to Home" }
+                    },
+                    [_c("i", { staticClass: "icon-home" }), _vm._v(" Levels")]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "quick-actions_homepage" }, [
+            ]),
+            _vm._v(" "),
             _c(
-              "ul",
-              { staticClass: "quick-actions" },
-              _vm._l(_vm.temp, function(level, key) {
-                return _c(
-                  "li",
-                  { key: key, staticClass: "bg_lg span3 submenu" },
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: "/Classrooms/" + level.id } },
-                      [
-                        _c("i", { staticClass: "icon-user" }),
-                        _vm._v(_vm._s(level.name))
-                      ]
-                    ),
-                    _vm._m(0, true)
-                  ],
-                  1
-                )
-              }),
-              0
+              "div",
+              {
+                staticClass: "container-fluid",
+                staticStyle: { "margin-left": "70px" }
+              },
+              [
+                _c("div", { staticClass: "quick-actions_homepage" }, [
+                  _c(
+                    "ul",
+                    { staticClass: "quick-actions" },
+                    _vm._l(_vm.levels, function(level, key) {
+                      return _c(
+                        "li",
+                        { key: key, staticClass: "bg_lg span3 submenu" },
+                        [
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/Classrooms/" + level.id } },
+                            [
+                              _c("i", { staticClass: "icon-user" }),
+                              _vm._v(_vm._s(level.name))
+                            ]
+                          ),
+                          _vm._m(0, true)
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ]
             )
           ])
-        ])
-      ]
-    )
-  ])
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -39006,37 +39007,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { attrs: { id: "sidebar" } }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("ul", [
-        _c(
-          "li",
-          [
-            _c("router-link", { attrs: { to: "/Levels" } }, [
-              _c("i", { staticClass: "icon icon-home" }),
-              _vm._v(" "),
-              _c("span", [_vm._v("Levels")])
-            ])
-          ],
-          1
-        )
-      ])
-    ])
-  ])
+  return _c("div")
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "visible-phone", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "icon icon-home" }),
-      _vm._v(" Dashboard")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54257,7 +54230,8 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: router,
   components: {
-    Myside: _components_Myside__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Myside: _components_Myside__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Levels: _components_Levels__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
