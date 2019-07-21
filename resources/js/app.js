@@ -20,6 +20,10 @@ import Classrooms from './components/Classrooms'
 import Subjects from './components/Subjects'
 import Results from './components/Results'
 import ResultTable from './components/ResultTable'
+import Studentside from './components/Studentside'
+import Studentlevels from './components/Studentlevels'
+import Studentresults from './components/Studentresults'
+
 
 
 
@@ -31,14 +35,23 @@ import ResultTable from './components/ResultTable'
 const routes = [
     {path: '/Levels', component: Levels},
     {path: `/Classrooms/:id`, component: Classrooms},
-    {path: `/Classrooms/:level_id/Subjects/:classroom_id`, component: Subjects}
+    {path: `/Classrooms/:level_id/Subjects/:classroom_id`, component: Subjects},  
+    {path: '/studentlevels', component: Studentlevels},
+    {path: '/studentresult/:level', component: Studentresults},
+
+    
 
 ]
 const router = new VueRouter({
     routes
 })
-const app = new Vue({
+var one = new Vue({
     el: '#app',
     router,
     components:{Myside,Levels,Classrooms,Subjects,Results,ResultTable}
+});
+var two = new Vue({
+    el: '#studentApp',
+    router,
+    components:{Studentside,Studentlevels,Studentresults}
 });

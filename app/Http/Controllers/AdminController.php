@@ -254,7 +254,9 @@ class AdminController extends Controller
     }
     public function viewAdminTeacher($id)
     {
-        $teacher=User::find($id);
+        $teacher=Teacher::with(['user','subjects'=>function($q){$q->with('level');},'classrooms'])->where('user_id',$id)->first();
+        // return response()->json($teacher);
+
         return view('admin.teacher.view_teacher',compact('teacher'));
     }
 // ------------------------------------------------------------------

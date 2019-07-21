@@ -4,8 +4,8 @@
 <title>Code95 School</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{URL::to('css/backend_css/bootstrap.min.css')}}" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{URL::to('css/backend_css/bootstrap-responsive.min.css')}}" />
 <link rel="stylesheet" href="{{URL::to('css/backend_css/fullcalendar.css')}}" />
 <link rel="stylesheet" href="{{URL::to('css/backend_css/select2.css')}}" />
@@ -28,7 +28,7 @@
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
+   <!--  <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Welcome User</span><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
         <li class="divider"></li>
@@ -45,20 +45,18 @@
         <li class="divider"></li>
         <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i> trash</a></li>
       </ul>
-    </li>
+    </li> -->
     <li class=""><a title="" href="{{route('get.studentSettings')}}"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
     <li class=""><a title="" href="{{route('student.getlogout')}}"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
 <!--close-top-Header-menu-->
 <!--sidebar-menu-->
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+<!-- <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li> <a href="charts.html"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
-    <li> <a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
-    <li><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
+    <li><a href="{{route('get.TeacherDashboard')}}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+  </ul> -->
+   <!--  <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>
         <li><a href="form-common.html">Basic Form</a></li>
@@ -98,14 +96,19 @@
       </div>
       <span class="percent">87%</span>
       <div class="stat">604.44 / 4000 MB</div>
-    </li>
-  </ul>
+    </li> -->
 </div>
 <!--sidebar-menu-->
+<div id="studentApp">
+    <studentside></studentside>
+    <router-view></router-view>
 
+    <div class="container" >
+    </div>
 <!--main-container-part-->
 @yield('content')
 <!--end-main-container-part-->
+</div>
 
 <!--Footer-part-->
 
@@ -116,11 +119,10 @@
 <!--end-Footer-part-->
 
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="{{URL::to('js/backend_js/jquery.validate.js')}}"></script> 
-<script src="{{URL::to('js/backend_js/admin.js')}}"></script> 
+<script src="{{URL::to('js/backend_js/lodash.js')}}"></script> 
+<script src="{{URL::to('js/app.js')}}"></script>
+
+
 
 </body>
 </html>

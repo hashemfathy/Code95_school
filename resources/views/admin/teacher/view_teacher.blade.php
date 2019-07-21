@@ -2,7 +2,7 @@
 @section('content')
 <<div id="content">
   <div id="content-header">
-    <h1>{{$teacher->name}}</h1>
+    <h1>{{$teacher->user->name}}</h1>
   </div>
   @if (session()->has('flush_errors'))
   <div class="alert alert-success alert-block">
@@ -15,14 +15,14 @@
       <div class="span12">
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"> <i class="icon-briefcase"></i> </span>
-            <h5 >{{$teacher->name}} Card</h5>
+            <h5 >{{$teacher->user->name}} Card</h5>
           </div>
           <div class="widget-content">
             <div class="row-fluid">
               <div class="span3">
                 <table class="">
                   <tbody>
-                    <tr><img style="" src="{{URL::to('img/backend_img/teachers/small/'.$teacher->photo)}}"></tr>
+                    <tr><img style="" src="{{URL::to('img/backend_img/teachers/small/'.$teacher->user->photo)}}"></tr>
                   </tbody>
                 </table>
               </div>
@@ -32,45 +32,19 @@
                     <tr>
                       <tr>
                         <td style="width:20%">teacher name:</td>
-                        <td ><strong>{{$teacher->name}}</strong></td>
+                        <td ><strong>{{$teacher->user->name}}</strong></td>
                       </tr>
                       <td >teacher Address:</td>
                       <td ><br>
-                        {{$teacher->address}}<br>
-                        parent No: {{$teacher->teacher->phone_number}} <br>
-                        Email: {{$teacher->email}} </td>
+                        {{$teacher->user->address}}<br>
+                        parent No: {{$teacher->phone_number}} <br>
+                        Email: {{$teacher->user->email}} </td>
                     </tr>
                     </tbody>
                   
                 </table>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="widget-box">
-          <div class="widget-title"> <span class="icon"> </span>
-          </div>
-          <div class="widget-content nopadding">
-            <table class="table table-bordered data-table">
-              <thead>
-                <tr>
-                <th style="background-color:#DDD9CD;"><h4>subject code</h4></th>
-                  <th style="background-color:#DDD9CD;"><h4>level</h4></th>
-                  <th style="background-color:#DDD9CD;"><h4>classrooms</h4></th>
-                  <th style="background-color:#DDD9CD;"><h4>adminstration review</h4></th>
-                </tr>
-              </thead>
-              <tbody>
-              @foreach($teacher as $teacher)
-                <tr class="gradeX">
-                  <td style="text-align:center;"><h5 style="font-size:20px;color:blue;"></h5></td>
-                  <td style="text-align:center;"><h5></h5></td>
-                  <td style="text-align:center;"><h5></h5></td>
-                  <td style="text-align:center;"><h5></h5></td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
