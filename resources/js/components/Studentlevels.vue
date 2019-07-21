@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="quick-actions_homepage">
                     <ul class="quick-actions">
-                        <li class="bg_lg span3 submenu" v-for="(level,key) in temp" :key="key" > <router-link :to="`/studentresult/${level.id}`"> <i class="icon-user"></i>{{level.name}}</router-link><i ><strong style="font-weight:bolder;font-size:20px;color:white;"></strong></i></li>
+                        <li class="bg_lg span3 submenu" v-for="(level,key) in temp" :key="key" > <router-link :to="`/studentl-level-result/${level.id}`"> <i class="icon-user"></i>{{level.name}}</router-link><i ><strong style="font-weight:bolder;font-size:20px;color:white;"></strong></i></li>
                     </ul>
                 </div>
             <!--End-Action boxes-->    

@@ -50,11 +50,11 @@ export default {
         }
     },
     async mounted(){
-        await this.getResults();        
+        await this.getResults(this.$route.params.level_id);        
     },
     methods:{
-        async getResults(){
-            const response = await axios.get(`/student/dashboard/results`);
+        async getResults(level_id){
+            const response = await axios.get(`/student/dashboard/results/${level_id}`);
             this.results = this.temp = response.data;
             console.log(response.data)
         },

@@ -100,7 +100,8 @@ Route::group(['middleware'=>['checkStudent']],function(){
     Route::get('/student/settings','UserController@studentSettings')->name('get.studentSettings');
     Route::get('/student/check-pwd','UserController@checkStudentPassword')->name('check.studentPassword');
     Route::post('/student/update-password','UserController@updateStudentPassword')->name('update.studentPassword');
-    Route::get('/student/dashboard/{level}/results','StudentController@getStudentResults');
+    Route::get('/student/dashboard/results/{level}','StudentController@getStudentLevelResults');
+    Route::get('/student/dashboard/results','StudentController@getStudentResults');
     Route::get('/student/dashboard/getLevels','StudentController@getStudentLevels');
 });
 
