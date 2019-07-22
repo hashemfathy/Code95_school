@@ -35,18 +35,22 @@
         <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
       </ul>
     </li> -->
-    <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown"> <i style="font-size:15px;"class="icon-bell"></i> <span class="label label-important">5</span></a>
-      <ul class="dropdown-menu">
-        
-      </ul>
-    </li>
-    <li class="dropdown">
-      <a  class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-bell"></i>
-        
+    <li class="dropdown" id="menu-messages">
+      <a href="#" data-toggle="dropdown"> <i style="font-size:15px;"class="icon-bell"></i>
+      @if(auth()->user()->unReadNotifications->count())
+      <span class="label label-important">{{auth()->user()->unReadNotifications->count()}}</span>
+      @endif
       </a>
       <ul class="dropdown-menu">
-        
+      @if(auth()->user()->unReadNotifications->count())
+      <li><a style="hover:{color:white}" href="{{route('student.markRead')}}">mark all as read</a> <i class="fa fa-check"></i></li>
+      @endif
+      @foreach(auth()->user()->unReadNotifications as $notification)
+      <li style="background-color:lightskyblue;"><a class="dropdown-item"  href="#">{{$notification->data['data']}}</a></li>
+      @endforeach
+      @foreach(auth()->user()->ReadNotifications as $notification)
+      <li class="dropdown-item" href="">{{$notification->data['data']}}</li>
+      @endforeach
       </ul>
     </li>
     <li class=""><a title="" href="{{route('get.studentSettings')}}"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>

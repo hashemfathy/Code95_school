@@ -82,7 +82,7 @@ export default {
             setTimeout(function(){
                 self.saved = false;
             }, 1000);
-            // console.log(response.data)
+            console.log(response.data)
         },
         async updateFullDegree(full_degree){
             const response = await axios.post(`/teacher/dashboard/Results/updateFullDegree`,{

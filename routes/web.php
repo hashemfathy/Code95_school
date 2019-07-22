@@ -103,6 +103,7 @@ Route::group(['middleware'=>['checkStudent']],function(){
     Route::get('/student/dashboard/results/{level}','StudentController@getStudentLevelResults');
     Route::get('/student/dashboard/results','StudentController@getStudentResults');
     Route::get('/student/dashboard/getLevels','StudentController@getStudentLevels');
+    Route::get('/student/dashboard/notifications/mark-read','StudentController@getStudentMarkRead')->name('student.markRead');
 });
 
 

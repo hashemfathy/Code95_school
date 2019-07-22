@@ -21,8 +21,18 @@ Route::group([
     'middleware' => 'api',
 
 ], function ($router) {
+    // ------------------------Student------------------------------
+    Route::post('/student/login', 'Api\AuthController@studentLogin');
+    Route::post('/student/register', 'Api\AuthController@studentRegister');
+    Route::get('/student/results', 'Api\StudentController@getStudentResults');
+    Route::get('/student/levels', 'Api\StudentController@getStudentLevels');
+    Route::get('/student/levels/{level}/results', 'Api\StudentController@getStudentLevelResults');
+    Route::get('/student/logout', 'Api\AuthController@studentLogout');
+    // ------------------------Teacher--------------------------
+    Route::post('/teacher/login', 'Api\AuthController@teacherLogin');
+    Route::get('/teacher/logout', 'Api\AuthController@teacherLogout');
 
-    Route::post('login/teacher', 'Api\AuthController@login');
    
 
 });
+

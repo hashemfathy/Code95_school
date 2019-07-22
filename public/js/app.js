@@ -1967,9 +1967,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 self = this;
                 setTimeout(function () {
                   self.saved = false;
-                }, 1000); // console.log(response.data)
+                }, 1000);
+                console.log(response.data);
 
-              case 7:
+              case 8:
               case "end":
                 return _context3.stop();
             }
@@ -65261,7 +65262,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Studentside__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Studentside */ "./resources/js/components/Studentside.vue");
 /* harmony import */ var _components_Studentlevels__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Studentlevels */ "./resources/js/components/Studentlevels.vue");
 /* harmony import */ var _components_Studentresults__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Studentresults */ "./resources/js/components/Studentresults.vue");
-/* harmony import */ var _components_StudentLevelresults__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/StudentLevelresults */ "./resources/js/components/StudentLevelresults.vue");
+/* harmony import */ var _components_StudentLevelresults__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/StudentLevelresults */ "./resources/js/components/StudentLevelresults.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -65300,7 +65301,7 @@ var routes = [{
   component: _components_Studentlevels__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
   path: '/studentl-level-result/:level_id',
-  component: _components_StudentLevelresults__WEBPACK_IMPORTED_MODULE_12__["default"]
+  component: _components_StudentLevelresults__WEBPACK_IMPORTED_MODULE_11__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes
@@ -65324,7 +65325,7 @@ var two = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     Studentside: _components_Studentside__WEBPACK_IMPORTED_MODULE_8__["default"],
     Studentlevels: _components_Studentlevels__WEBPACK_IMPORTED_MODULE_9__["default"],
     Studentresults: _components_Studentresults__WEBPACK_IMPORTED_MODULE_10__["default"],
-    StudentLevelresults: _components_StudentLevelresults__WEBPACK_IMPORTED_MODULE_12__["default"]
+    StudentLevelresults: _components_StudentLevelresults__WEBPACK_IMPORTED_MODULE_11__["default"]
   }
 });
 

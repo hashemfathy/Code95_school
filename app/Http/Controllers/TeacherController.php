@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Level;
 use App\Result;
 use App\Student;
@@ -10,6 +11,7 @@ use App\Teacher;
 use App\Classroom;
 use App\ClassSubjectTeach;
 use Illuminate\Http\Request;
+use App\Notifications\NewResult;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ResultResource;
 
@@ -54,9 +56,14 @@ class TeacherController extends Controller
         if($studentResult){
             $studentResult->degree=$request->degree;
             $studentResult->update();
+            // notification----------------
+            $user=User::where('id',$student->user_id)->first();
+            $subject=Subject::where('id',$request->subject_id)->first();
+            $subject=$subject->subject_code;
+            $user->notify(new NewResult($subject));
             $students=Student::where('classroom_id',$request->classroom_id)->with(['user','results'=>function($q) use($request){$q->where('subject_id',$request->subject_id);}])->get();
             return $students;
-        }
+        };
         $newStudentResult=new Result;
         $newStudentResult->teacher_id=Auth::user()->id;
         $newStudentResult->student_id=$student->id;
@@ -65,6 +72,12 @@ class TeacherController extends Controller
         $newStudentResult->level_id=$student->level_id;
         $newStudentResult->degree=$request->degree;
         $newStudentResult->save();
+        // notification----------------
+        $user=User::where('id',$student->user_id)->first();
+        $subject=Subject::where('id',$request->subject_id)->first();
+        $subject=$subject->subject_code;
+        $user->notify(new NewResult($subject));
+
         $students=Student::where('classroom_id',$request->classroom_id)->with(['user','results'=>function($q) use($request){$q->where('subject_id',$request->subject_id);}])->get();
         return $students;
     }
