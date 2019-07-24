@@ -2359,6 +2359,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -50167,12 +50168,14 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
                 _c("div", { staticClass: "widget-content nopadding" }, [
                   _c(
                     "table",
                     { staticClass: "table table-bordered data-table" },
                     [
-                      _vm._m(1),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -50238,6 +50241,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { attrs: { id: "content-header" } }, [
       _c("h1", [_vm._v("Results")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticStyle: { float: "right" } }, [
+      _c("i", { staticClass: " icon-download-alt" }),
+      _c(
+        "a",
+        {
+          attrs: { href: "/student/dashboard/results/getPDF", type: "button" }
+        },
+        [_vm._v(" download as PDF")]
+      )
     ])
   },
   function() {

@@ -12,6 +12,7 @@
                     <div class="span12">
                           <div class="widget-box">
                               <button><router-link to="/studentlevels" ><i class="icon icon-home"></i> <span>see all results</span></router-link></button>
+                              <button style="float:right;"><i class=" icon-download-alt"></i><a href="/student/dashboard/results/getPDF" type="button"> download as PDF</a></button>
                             <div class="widget-content nopadding">
                                 <table class="table table-bordered data-table">
                                     <thead>

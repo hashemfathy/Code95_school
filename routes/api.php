@@ -31,7 +31,12 @@ Route::group([
     // ------------------------Teacher--------------------------
     Route::post('/teacher/login', 'Api\AuthController@teacherLogin');
     Route::get('/teacher/logout', 'Api\AuthController@teacherLogout');
-
+    Route::get('/teacher/levels', 'Api\TeacherController@getTeacherLevels');
+    Route::get('/teacher/levels/{level}/classrooms', 'Api\TeacherController@getClassrooms');
+    Route::get('/teacher/levels/{level}/classrooms/{classroom}', 'Api\TeacherController@getSubjects');
+    Route::get('/teacher/classrooms/{classroom}/subjects/{subject}', 'Api\TeacherController@getStudentsResults');
+    Route::post('/teacher/Results/updateFullDegree', 'Api\TeacherController@updateFullDegree');
+    Route::post('/teacher/Results/{student}/updateDegree','Api\TeacherController@updateDegree');
    
 
 });

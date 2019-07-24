@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
 
         /*
@@ -229,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'PDF' =>Barryvdh\DomPDF\Facade::class,
 
     ],
 
