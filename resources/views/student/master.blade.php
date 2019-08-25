@@ -45,12 +45,13 @@
       @if(auth()->user()->unReadNotifications->count())
       <li><a style="hover:{color:white}" href="{{route('student.markRead')}}">mark all as read</a> <i class="fa fa-check"></i></li>
       @endif
-      @foreach(auth()->user()->unReadNotifications as $notification)
+      @foreach(auth()->user()->unReadNotifications->paginate(3) as $notification)
       <li style="background-color:lightskyblue;"><a class="dropdown-item"  href="#">{{$notification->data['data']}}</a></li>
       @endforeach
-      @foreach(auth()->user()->ReadNotifications as $notification)
+      @foreach(auth()->user()->ReadNotifications->paginate(3) as $notification)
       <li class="dropdown-item" href="">{{$notification->data['data']}}</li>
       @endforeach
+      {{auth()->user()->notifications()->paginate(5)->links()}}
       </ul>
     </li>
     <li class=""><a title="" href="{{route('get.studentSettings')}}"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>

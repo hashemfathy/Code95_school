@@ -11,8 +11,12 @@ use App\Subject;
 use App\Teacher;
 use App\Classroom;
 use App\ClassSubjectTeach;
+use App\Exports\CsvExport;
+use App\Imports\CsvImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Input;
 
 class AdminController extends Controller
@@ -20,7 +24,13 @@ class AdminController extends Controller
 // ----------------------Student Controllers -----------------------
     public function getAdminStudents()
     {
-        $students=User::where('is_admin','3')->with(['student' => function($q) { $q->with(['classroom','level']);}])->get();
+        $students = cache()->remember('students', 60 , function () {
+            $students=User::where('is_admin','3')->with(['student' => function($q) { $q->with(['classroom','level']);}])->get();
+            return $students;
+        });
+        // $students=User::where('is_admin','3')->with(['student' => function($q) { $q->with(['classroom','level']);}])->get();
+        // Cache::get('students');
+        // Cache::forget('students'); die();
         return view('admin.student.view_students',compact('students'));
     }
     public function getAddStudent()
@@ -141,7 +151,16 @@ class AdminController extends Controller
         $student=User::find($id);
         return view('admin.student.view_student',compact('student'));
     }
-
+    // ----------------------------Excel Import & Export ----------------
+    public function studentsExport()
+    {
+        return Excel::download(new CsvExport,'sample.csv');
+    }
+    public function studentsImport()
+    {
+        Excel::import(new CsvImport, request()->file('file'));
+        return back();
+    }
 // ------------------------------------------------------------------
 // ----------------------Teacher Controllers -----------------------
     public function getAdminTeachers()

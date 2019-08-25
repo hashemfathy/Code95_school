@@ -77,7 +77,6 @@ class TeacherController extends Controller
         $subject=Subject::where('id',$request->subject_id)->first();
         $subject=$subject->subject_code;
         $user->notify(new NewResult($subject));
-
         $students=Student::where('classroom_id',$request->classroom_id)->with(['user','results'=>function($q) use($request){$q->where('subject_id',$request->subject_id);}])->get();
         return $students;
     }

@@ -16,6 +16,8 @@
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"> <i class="icon-plus-sign"></i> </span>
             <a type="submit" style="height:75%;" href="{{route('get.AddStudent')}}" id="addstudentbutton"class="btn btn-primary">Add Student</a>
+            <a style="float:right;height:75%;" type="submit" href="#myModal" id="importButton"class="btn btn-warning" data-toggle="modal"><i class="icon-arrow-up"></i> Import students from Excel</a>
+            <a style="float:right;height:75%;margin-right:10px;" type="submit" href="{{route('studentsExport')}}" id="exportButton"class="btn btn-success"><i class="icon-arrow-down"></i> Export to Excel</a>
           </div>
           <div class="widget-content nopadding">
             <table class="table table-bordered data-table">
@@ -47,6 +49,28 @@
               </tbody>
             </table>
           </div>
+          <!-- ----------Import Students modal------- -->
+          <div id="myModal" class="modal hide">
+                  <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">×</button>
+                    <h2>Import Excel File</h2>
+                  </div>
+                  <div class="modal-body">
+                    <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{route('studentsImport')}}" name="Import_students" id="Import_students" novalidate="novalidate">
+                      @csrf 
+                      <div class="control-group">
+                        <label class="control-label">Import excel file</label>
+                        <div class="controls">
+                          <input name="file"id="file"type="file" />
+                        </div>
+                      </div>
+                      <div class="form-actions">
+                        <input type="submit" value="Upload" class="btn btn-success">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- ------------------------------------ -->
         </div>
       </div>
     </div>

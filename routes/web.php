@@ -55,6 +55,9 @@ Route::group(['middleware'=>['checkAdmin']],function(){
     Route::post('/admin/students/edit-student/{id}','AdminController@updateStudent')->name('updateAdminStudent');
     Route::get('/admin/students/delete-student/{id}','AdminController@deleteAdminStudent')->name('delete.adminStudent');
     Route::get('/admin/students/view-student/{id}','AdminController@viewAdminStudent')->name('view.adminStudent');
+    Route::get('/admin/students/export','AdminController@studentsExport')->name('studentsExport');
+    Route::post('/admin/students/import','AdminController@studentsImport')->name('studentsImport');
+
     // ---------admin teacher part -----
     Route::get('admin/teachers','AdminController@getAdminTeachers')->name('get.AdminTeachers');
     Route::get('admin/teachers/add-teacher','AdminController@getAddTeacher')->name('get.AddTeacher');
